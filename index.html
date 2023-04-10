@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Lista de coches disponibles</title>
+  <link rel="stylesheet" type="text/css" href="./style.css">
+</head>
+<body>
+  <h1>Lista de coches disponibles</h1>
+
+  <div class="form">
+    <label for="proveedores">Proveedor:</label>
+    <select id="proveedores">
+      <option value="">Selecciona un proveedor</option>
+    </select>
+  </div>
+
+  <div class="coches">
+    <h2>Lista de coches disponibles</h2>
+    <table id="tabla-coches">
+      <thead>
+        <tr>
+          <th>Marca</th>
+          <th>Modelo</th>
+          <th>Año</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <div id="modal" class="modal">
+    <div class="modal-contenido">
+      <span class="cerrar">&times;</span>
+      <h3 id="modal-titulo"></h3>
+      <img id="modal-imagen" src="" alt="">
+      <ul id="modal-detalles"></ul>
+    </div>
+  </div>
+  <script src="./coches.js"></script>
+</body>
+</html>

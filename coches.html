@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de puertos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+          crossorigin="anonymous">
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet"
+          href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+          integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
+          crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+            integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
+            crossorigin=""></script>
+
+    <style>
+        .stickyDiv {
+            position: sticky;
+            top: 0px;
+            padding: 10px 0px;
+        }
+
+        #idMapa {
+
+            height: 800px;
+            width: 800px;
+            float: right;
+        }
+    </style>
+
+</head>
+<body>
+<table id="data"></table>
+<div class="container-fluid">
+    <div class="row align-items-start">
+        <div class="col bg-light overflow-scroll">
+            <form>
+                <div class="input-group mb-3">
+                    <input type="text" id="txtCoches" class="form-control" placeholder="Escriba una localización">
+                    <button class="btn btn-outline-secondary" type="button" onclick="LCoche.buscar()">Buscar</button>
+                </div>
+            </form>
+        </div>
+        <div class="col stickyDiv">
+            <div id="idMapa"></div>
+        </div>
+    </div>
+    
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        
+    </div>
+      
+
+
+</div>
+</body>
+
+<!-- CódigoJavaScript -->
+
+<script>
+    var mymap = L.map('idMapa').setView([36.718893, -4.453584], 13);
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+        maxZoom: 18,
+        id: 'mapbox/streets-v11',
+        tileSize: 512,
+        zoomOffset: -1,
+        accessToken: 'pk.eyJ1IjoieW9xdWVzZTEiLCJhIjoiY2xiN2E0Nnh3MDkxcjNwcW4xaWQxbXMxZiJ9.4n27rL1RaGR6BGgLcjXvxw'
+    }).addTo(mymap);
+    var marker = L.marker([36.71980419507115, -4.453508323296236]).addTo(mymap);
+    var popup = L.popup();
+
+    function pintarMarcador(lat, lon) {
+        let latLon = L.latLng(lat, lon);
+        let bounds = latLon.toBounds(8000);
+        if (marker != undefined) {
+            mymap.removeLayer(marker);
+        }
+        marker = L.marker([lat, lon]).addTo(mymap);
+        mymap.panTo(latLon).fitBounds(bounds);
+    }
+
+    function onMapClick(e) {
+        popup
+            .setLatLng(e.latlng)
+            .setContent("Posición " + e.latlng.toString())
+            .openOn(mymap);
+    }
+    mymap.on('click', onMapClick);
+</script>
+<script>
+    const JSON_COCHES = {"coches":"sexo", "NANA":"WWXX  "};
+    const ListaPuertos = {
+        obtenerPuertos: function () {
+            fetch(JSON_COCHES)
+                .then(response => response.json())
+                .then(data => console.log(data));
+        }
+    }
+
+
+    
+
+</script>
+</html>

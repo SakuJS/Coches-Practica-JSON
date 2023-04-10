@@ -1,0 +1,11 @@
+# Practica-Coches-JSON
+
+
+## Subject
+Usa el fichero coches.json
+--------------------------
+Plantea un formulario que tenga una lista desplegable con los nombres de los proveedores
+que tengan coches disponbiles (Count=0), ordenados alfabéticamente.
+
+Del proveeedor seleccionado mostrar la lista de coches con algunso datos básicos.
+Al hacer clic sobre un coche mostrar en un modal todos los datos del coche.
